@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ProductLabelArt } from "@/components/art/ProductLabelArt";
 import { RootMotif } from "@/components/art/RootMotif";
+import { CertBadgeArt } from "@/components/art/CertBadgeArt";
 
 interface Props {
   weightLabel: string;
@@ -23,15 +24,7 @@ export function ProductGallery({ weightLabel, variety }: Props) {
         </div>
       ),
     },
-    {
-      key: "badge",
-      node: (
-        <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-soil-700 text-ivory-50">
-          <p className="font-serif text-2xl font-bold">유기농 인증</p>
-          <p className="text-sm text-ivory-300">제 15100525호 · 무안</p>
-        </div>
-      ),
-    },
+    { key: "badge", node: <CertBadgeArt className="h-full w-full" /> },
   ];
 
   return (

@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCartStore } from "@/lib/cart-store";
+import { useHasMounted } from "@/lib/use-has-mounted";
 
 export function CartIndicator({ className }: { className?: string }) {
   const items = useCartStore((s) => s.items);
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const mounted = useHasMounted();
   const count = mounted ? items.reduce((sum, i) => sum + i.quantity, 0) : 0;
 
   return (

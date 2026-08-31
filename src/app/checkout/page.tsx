@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCartStore, cartTotals } from "@/lib/cart-store";
 import { formatKRW } from "@/lib/format";
+import { useHasMounted } from "@/lib/use-has-mounted";
 
 const PAYMENT_METHODS = [
   { value: "card", label: "신용/체크카드" },
@@ -16,7 +17,7 @@ export default function CheckoutPage() {
   const items = useCartStore((s) => s.items);
   const clear = useCartStore((s) => s.clear);
   const router = useRouter();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useHasMounted();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({
@@ -28,7 +29,6 @@ export default function CheckoutPage() {
     paymentMethod: "card" as (typeof PAYMENT_METHODS)[number]["value"],
   });
 
-  useEffect(() => setMounted(true), []);
   useEffect(() => {
     if (mounted && items.length === 0) router.replace("/cart");
   }, [mounted, items.length, router]);

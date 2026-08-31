@@ -1,20 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCartStore, cartTotals } from "@/lib/cart-store";
 import { FreeShippingBar } from "@/components/cart/FreeShippingBar";
 import { formatKRW } from "@/lib/format";
+import { useHasMounted } from "@/lib/use-has-mounted";
 
 export default function CartPage() {
   const items = useCartStore((s) => s.items);
   const setQuantity = useCartStore((s) => s.setQuantity);
   const removeItem = useCartStore((s) => s.removeItem);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useHasMounted();
   const router = useRouter();
-
-  useEffect(() => setMounted(true), []);
 
   if (!mounted) return <div className="container-page py-20" />;
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getJournalPostBySlug } from "@/lib/journal";
 import { formatDate } from "@/lib/format";
+import { breadcrumbJsonLd } from "@/lib/json-ld";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -16,8 +17,15 @@ export default async function JournalPostPage({ params }: { params: Promise<{ sl
   const post = await getJournalPostBySlug(slug);
   if (!post) notFound();
 
+  const breadcrumbLd = breadcrumbJsonLd([
+    { name: "홈", path: "/" },
+    { name: "농장저널", path: "/journal" },
+    { name: post.title, path: `/journal/${post.slug}` },
+  ]);
+
   return (
     <article className="container-page max-w-2xl py-14 md:py-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <nav className="mb-6 text-sm text-charcoal-400">
         <Link href="/journal" className="hover:text-burgundy-600">농장저널</Link>
         <span className="mx-2">/</span>

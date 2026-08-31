@@ -5,7 +5,7 @@ import { verifyCsrf, CSRF_COOKIE, generateCsrfToken } from "@/lib/csrf";
 const PUBLIC_ADMIN_PATHS = ["/admin/login"];
 const PUBLIC_ADMIN_API = ["/api/admin/login", "/api/admin/verify-2fa"];
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // ---- /admin/* 페이지 보호 ----

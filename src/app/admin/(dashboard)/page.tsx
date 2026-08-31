@@ -2,9 +2,11 @@ import Link from "next/link";
 import { getDashboardStats, getRecentOrders } from "@/lib/analytics";
 import { formatKRW, formatDate } from "@/lib/format";
 import { ORDER_STATUS_LABEL } from "@/lib/order-labels";
+import { naverCommerceClient } from "@/lib/integrations/naver/client";
 
 export default async function AdminDashboardPage() {
   const [stats, recentOrders] = await Promise.all([getDashboardStats(), getRecentOrders()]);
+  const naverConnected = naverCommerceClient.isConfigured();
   const diff = stats.yesterdayRevenue === 0 ? null : Math.round(((stats.todayRevenue - stats.yesterdayRevenue) / stats.yesterdayRevenue) * 100);
 
   return (
@@ -19,6 +21,18 @@ export default async function AdminDashboardPage() {
         <StatCard label="취소" value={`${stats.cancelledCount}건`} />
         <StatCard label="미답변 문의" value={`${stats.openInquiries}건`} highlight={stats.openInquiries > 0} />
         <StatCard label="재고부족 상품" value={`${stats.lowStockProducts.length}개`} highlight={stats.lowStockProducts.length > 0} />
+      </div>
+
+      <div className="mt-6 flex items-center justify-between rounded-sm border border-soil-100 bg-ivory-50 p-5">
+        <div>
+          <p className="text-sm font-medium text-charcoal-600">채널 연동 · 스마트스토어(네이버 커머스API)</p>
+          <p className="mt-1 text-xs text-charcoal-400">
+            {naverConnected ? "연동 활성화됨 — 주문/재고 동기화가 가능합니다." : "미연동 — .env에 NAVER_COMMERCE_CLIENT_ID/SECRET을 설정하면 활성화됩니다."}
+          </p>
+        </div>
+        <span className={`rounded-full px-3 py-1 text-xs font-semibold ${naverConnected ? "bg-olive-100 text-olive-700" : "bg-ivory-200 text-charcoal-500"}`}>
+          {naverConnected ? "연동됨" : "미연동"}
+        </span>
       </div>
 
       {stats.lowStockProducts.length > 0 && (

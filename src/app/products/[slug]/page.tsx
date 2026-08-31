@@ -8,6 +8,7 @@ import { getProductBySlug, getPublishedProducts, getVisibleReviewsForProduct } f
 import { formatKRW, formatDateShort } from "@/lib/format";
 import { brand, tasteGuide, broadcasts, certifications } from "@/content/facts";
 import { faqItems } from "@/content/faq";
+import { breadcrumbJsonLd } from "@/lib/json-ld";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -47,9 +48,16 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     },
   };
 
+  const breadcrumbLd = breadcrumbJsonLd([
+    { name: "홈", path: "/" },
+    { name: "전체 상품", path: "/products" },
+    { name: product.name, path: `/products/${product.slug}` },
+  ]);
+
   return (
     <div className="pb-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
       <div className="container-page py-10 md:py-14">
         <nav className="mb-6 text-sm text-charcoal-400">

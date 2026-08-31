@@ -87,7 +87,7 @@ const config: Config = {
       },
       keyframes: {
         fadeUp: {
-          "0%": { opacity: "0", transform: "translateY(16px)" },
+          "0%": { opacity: "0", transform: "translateY(6px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
         marquee: {
@@ -96,7 +96,7 @@ const config: Config = {
         },
       },
       animation: {
-        fadeUp: "fadeUp 0.7s ease-out both",
+        fadeUp: "fadeUp 0.15s ease-out both",
         marquee: "marquee 32s linear infinite",
       },
     },
