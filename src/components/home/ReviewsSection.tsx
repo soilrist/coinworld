@@ -1,5 +1,6 @@
 import type { Review } from "@prisma/client";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { formatDateShort } from "@/lib/format";
 
 /**
@@ -11,28 +12,30 @@ export function ReviewsSection({ reviews }: { reviews: Review[] }) {
   return (
     <section className="bg-ivory-200/60 py-20 md:py-28">
       <div className="container-page">
-        <SectionHeading eyebrow="Review" title="담이농장을 먼저 만난 분들" align="center" />
+        <Reveal>
+          <SectionHeading eyebrow="Review" title="담이농장을 먼저 만난 분들" align="center" />
+        </Reveal>
         {reviews.length === 0 ? (
-          <div className="mx-auto mt-12 max-w-lg rounded-sm border border-dashed border-soil-300 bg-ivory-50 p-10 text-center">
+          <Reveal className="mx-auto mt-12 max-w-lg rounded-sm border border-dashed border-soil-300 bg-ivory-50 p-10 text-center">
             <p className="font-serif text-lg font-semibold text-soil-700">첫 리뷰를 기다리고 있습니다</p>
             <p className="mt-2 text-sm leading-relaxed text-charcoal-500">
               상품을 받아보신 분들의 사진과 후기가 이곳에 그대로 쌓입니다. 실제 구매 고객의 리뷰만
               투명하게 게시합니다.
             </p>
-          </div>
+          </Reveal>
         ) : (
-          <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+          <RevealGroup className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
             {reviews.map((r) => (
-              <article key={r.id} className="card-editorial p-6">
+              <RevealItem key={r.id} as="article" className="card-editorial p-6">
                 <div className="flex items-center justify-between">
                   <p className="font-semibold text-soil-700">{r.authorName}</p>
                   <p className="text-sm text-burgundy-500">{"★".repeat(r.rating)}<span className="text-soil-100">{"★".repeat(5 - r.rating)}</span></p>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-charcoal-500">{r.content}</p>
                 <p className="mt-4 text-xs text-charcoal-300">{formatDateShort(r.createdAt)}</p>
-              </article>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         )}
       </div>
     </section>

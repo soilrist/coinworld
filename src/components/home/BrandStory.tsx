@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { FounderPortraitArt } from "@/components/art/FounderPortraitArt";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/Reveal";
 import { meisterQuote } from "@/content/facts";
 
 export function BrandStory() {
   return (
     <section className="container-page py-20 md:py-28">
       <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
-        <div className="order-2 md:order-1">
+        <Reveal className="order-2 md:order-1">
           <SectionHeading
             eyebrow="Brand Story"
             title={"한 철 장사가 아니라\n농사를 업으로 살아온 시간"}
@@ -31,10 +32,10 @@ export function BrandStory() {
           <Link href="/story" className="btn-outline mt-8 inline-flex">
             담이농장 이야기 더 보기
           </Link>
-        </div>
-        <div className="order-1 md:order-2">
+        </Reveal>
+        <Reveal delay={0.1} className="order-1 md:order-2">
           <FounderPortraitArt className="mx-auto w-full max-w-sm rounded-sm shadow-soft" />
-        </div>
+        </Reveal>
       </div>
     </section>
   );

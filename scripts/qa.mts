@@ -48,6 +48,36 @@ interface Issue {
 
 const issues: Issue[] = [];
 
+/**
+ * 실제 사용자의 스크롤을 흉내내 페이지 끝까지 점진적으로 스크롤한다.
+ * Framer Motion의 whileInView(IntersectionObserver 기반) 리빌 애니메이션은 실제
+ * 스크롤이 있어야 트리거되므로, 이 과정 없이 fullPage 스크린샷만 찍으면 뷰포트 밖
+ * 콘텐츠가 opacity:0 상태로 캡처될 수 있다(실사용자 경험과는 무관한 캡처 아티팩트).
+ */
+async function scrollThroughPage(page: import("playwright").Page) {
+  await page.evaluate(async () => {
+    await new Promise<void>((resolve) => {
+      const step = 400;
+      const maxTicks = 300; // 안전장치: 최대 300틱(약 18초) 후 강제 종료
+      let ticks = 0;
+      const timer = setInterval(() => {
+        window.scrollBy(0, step);
+        ticks += 1;
+        const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+        if (atBottom || ticks >= maxTicks) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 60);
+    });
+  });
+  await page.waitForTimeout(400);
+  // whileInView(once:true) 애니메이션은 트리거된 뒤 상태가 유지되므로, sticky 헤더가
+  // fullPage 캡처 시 중간에 중복 렌더링되는 것을 막기 위해 캡처 전 맨 위로 되돌린다.
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(100);
+}
+
 function attachListeners(page: import("playwright").Page, pageName: string, viewportName: string) {
   page.on("console", (msg: ConsoleMessage) => {
     if (msg.type() === "error") {
@@ -82,6 +112,7 @@ async function main() {
       const page = await context.newPage();
       attachListeners(page, pagePath, vp.name);
       await page.goto(`${BASE_URL}${pagePath}`, { waitUntil: "networkidle" });
+      await scrollThroughPage(page);
       const safeName = pagePath === "/" ? "home" : pagePath.replace(/\//g, "_").slice(1);
       await page.screenshot({ path: path.join(OUT_DIR, `${vp.name}__${safeName}.png`), fullPage: true });
 
