@@ -19,8 +19,10 @@ export function Footer() {
             무안 황토밭에서 유기농으로 키운 고구마를 산지에서 바로 보내드립니다.
           </p>
           <p className="mt-4 text-xs text-ivory-400">
-            <span className="font-semibold text-ivory-100">고객센터 상담시간</span> {customerService.hours}
-            {customerService.phone && <> · {customerService.phone}</>}
+            <span className="font-semibold text-ivory-100">고객센터</span> {customerService.phone} · {customerService.hours}
+          </p>
+          <p className="mt-1 text-xs text-ivory-400">
+            <span className="font-semibold text-ivory-100">대표 문의</span> {customerService.founderPhone}
           </p>
         </div>
         <div>
