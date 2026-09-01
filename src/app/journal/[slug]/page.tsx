@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getJournalPostBySlug } from "@/lib/journal";
 import { formatDate } from "@/lib/format";
@@ -34,6 +35,11 @@ export default async function JournalPostPage({ params }: { params: Promise<{ sl
       <p className="eyebrow">{post.category}</p>
       <h1 className="mt-3 font-serif text-3xl font-bold text-soil-700">{post.title}</h1>
       <p className="mt-3 text-sm text-charcoal-400">{formatDate(post.publishedAt)}</p>
+      {post.image && (
+        <div className="relative mt-8 aspect-[16/10] overflow-hidden rounded-sm bg-ivory-200">
+          <Image src={post.image} alt={post.title} fill sizes="(min-width: 768px) 672px, 100vw" className="object-cover" priority />
+        </div>
+      )}
       <div className="mt-8 space-y-5 text-[15px] leading-[1.9] text-charcoal-600 md:text-base">
         {post.content.split("\n").map((para, i) => (
           <p key={i}>{para}</p>

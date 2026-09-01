@@ -34,7 +34,7 @@ async function main() {
   for (const j of journalSeeds) {
     await prisma.journalPost.upsert({
       where: { slug: j.slug },
-      update: {},
+      update: j,
       create: j,
     });
   }

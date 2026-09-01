@@ -244,6 +244,7 @@ model JournalPost {
   excerpt     String
   content     String
   category    String // "수확" | "밭관리" | "출하소식" | "방송" | "수상" | "공지"
+  image       String? // public/ 기준 상대경로
   publishedAt DateTime @default(now())
   isPublished Boolean  @default(true)
 }

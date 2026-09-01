@@ -16,6 +16,12 @@ export const brand = {
   subTagline: "2012년부터 이어온 유기농 고구마, 강여상 농부의 담이농장",
 } as const;
 
+// 전화번호는 아직 확보 전 — 확보되는 대로 채울 것 (docs/CONTENT.md §13)
+export const customerService = {
+  hours: "오전 6시 ~ 오후 10시",
+  phone: null as string | null,
+} as const;
+
 export interface FactStat {
   value: string;
   label: string;
