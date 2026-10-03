@@ -2,32 +2,39 @@
 
 담이농장 유기농 고구마 소개용 정적 사이트입니다. 빌드 과정 없이 `index.html`을 브라우저로 열면 바로 보입니다. 예전 HTML 연습 파일은 `practice/` 폴더로 옮겨 두었습니다.
 
-## 공개하기 (GitHub Pages)
+## 공개하기 (카페24 웹호스팅)
 
-저장소 Settings → Pages에서 Source를 "Deploy from a branch", 브랜치를 `master` / `(root)`로 고르면 https://soilrist.github.io/coinworld/ 주소로 공개됩니다.
+`master`에 저장되면 GitHub Actions(`.github/workflows/deploy.yml`)가 홈페이지 파일을 카페24에 FTP로 올립니다. 처음 한 번만 저장소 **Settings → Secrets and variables → Actions → New repository secret**에서 아래 값을 넣어 주세요. 비밀번호는 이곳에만 넣고 채팅이나 파일에는 적지 않습니다.
+
+- `CAFE24_FTP_HOST`: FTP 주소 (예: 아이디.cafe24.com)
+- `CAFE24_FTP_USER`: FTP 아이디
+- `CAFE24_FTP_PASS`: FTP 비밀번호
+- `CAFE24_FTP_DIR`: (선택) 올릴 폴더, 비워 두면 `/www`
+
+올라가는 파일: `index.html`, `styles.css`, `site.js`, `farm-info.js`, `favicon.svg`, `photos/` 안의 사진
 
 ## 가격·상품·연락처 고치는 법 (휴대폰에서도 됩니다)
 
-1. GitHub에서 이 저장소를 열고 `농장정보.js` 파일을 누릅니다.
+1. GitHub에서 이 저장소를 열고 `farm-info.js` 파일을 누릅니다.
 2. 오른쪽 위 연필(✏️ Edit) 버튼을 누릅니다.
 3. 파일 위쪽 설명대로 가격이나 연락처 글자를 고칩니다. 예: `- 5kg | 38,000원`, 품절이면 `- 10kg | 65,000원 | 품절`
-4. 아래(또는 오른쪽 위) **Commit changes** 버튼을 누르면 끝입니다. 1~2분 뒤 홈페이지에 반영됩니다.
+4. 아래(또는 오른쪽 위) **Commit changes** 버튼을 누르면 끝입니다. 1~2분 뒤 카페24 사이트에 반영됩니다.
 
 ` (백틱) 기호 사이의 글자만 고치면 됩니다. 실수로 홈페이지가 이상해지면 파일의 History에서 이전 버전으로 되돌릴 수 있습니다.
 
 ## 사진 넣는 법
 
 1. GitHub에서 `photos` 폴더를 열고 **Add file → Upload files**로 사진을 올립니다.
-2. `농장정보.js` 맨 아래 `사진목록`에 `파일이름.jpg | 사진 설명`을 한 줄씩 적고 저장합니다.
+2. `farm-info.js` 맨 아래 `사진목록`에 `파일이름.jpg | 사진 설명`을 한 줄씩 적고 저장합니다. 사진 파일 이름은 영어와 숫자로 지어 주세요 (예: harvest1.jpg).
 
 사진목록이 비어 있으면 사진 칸은 나오지 않고, 파일 이름이 틀린 사진은 자동으로 빠집니다.
 
 ## 실제 정보로 바꿔야 할 곳
 
-- 인증을 갱신하면 `농장정보.js` 사업자정보의 인증 기간을 바꾸기 (유기농 2027.8.9, 저탄소 2028.8.31 만료)
+- 인증을 갱신하면 `farm-info.js` 사업자정보의 인증 기간을 바꾸기 (유기농 2027.8.9, 저탄소 2028.8.31 만료)
 - 농장 소개 글 (`index.html`의 농장 소개 부분)
 - 공유 미리보기용 `og-image.png` (1200×630) 추가
-- 별도 도메인을 쓰게 되면 `index.html`의 `https://soilrist.github.io/coinworld/` 주소들을 바꾸기
+- 담이농장.com 연결이 끝나면 `index.html`의 `https://soilrist.github.io/coinworld/` 주소들을 실제 도메인으로 바꾸기
 
 ## 보안
 
