@@ -4,12 +4,19 @@
 
 ## 공개하기 (카페24 웹호스팅)
 
-`master`에 저장되면 GitHub Actions(`.github/workflows/deploy.yml`)가 홈페이지 파일을 카페24에 FTP로 올립니다. 처음 한 번만 저장소 **Settings → Secrets and variables → Actions → New repository secret**에서 아래 값을 넣어 주세요. 비밀번호는 이곳에만 넣고 채팅이나 파일에는 적지 않습니다.
+`master`에 저장되면 GitHub Actions(`.github/workflows/deploy.yml`)가 SSH로 카페24에 접속해 아래 순서로 올립니다. 사이트를 잠가 둔 상태(`chmod 000 ~/www`)여도 그대로 동작합니다.
 
-- `CAFE24_FTP_HOST`: FTP 주소 `damefarm1.cafe24.com` (다르면 카페24 호스팅 관리 화면의 FTP 정보에서 확인)
-- `CAFE24_FTP_USER`: FTP 아이디
-- `CAFE24_FTP_PASS`: FTP 비밀번호
-- `CAFE24_FTP_DIR`: (선택) 올릴 폴더, 비워 두면 `/www`
+1. `www`를 잠급니다.
+2. `www` 안의 예전 파일을 **모두 지웁니다**. (해킹으로 남은 파일 제거)
+3. 새 홈페이지 파일을 올립니다.
+4. `www`를 다시 엽니다 (`chmod 755`). 중간에 실패하면 잠긴 채로 남아 안전합니다.
+
+처음 한 번만 저장소 **Settings → Secrets and variables → Actions → New repository secret**에서 아래 값을 넣어 주세요. 비밀번호는 이곳에만 넣고 채팅이나 파일에는 절대 적지 않습니다. 채팅에 한 번이라도 올라간 비밀번호는 먼저 바꾼 뒤, 바꾼 새 비밀번호를 넣으세요.
+
+- `CAFE24_SSH_HOST`: `xn--980bp0a336bwfa.com` (담이농장.com의 영문 표기)
+- `CAFE24_SSH_USER`: `damefarm1`
+- `CAFE24_SSH_PASS`: SSH/FTP 비밀번호 (바꾼 새 비밀번호)
+- `CAFE24_SSH_KNOWN_HOSTS`: PowerShell에서 `ssh-keyscan xn--980bp0a336bwfa.com` 을 실행해 나온 줄 전체를 복사해 붙여넣기 (가짜 서버에 접속하지 않도록 서버를 확인하는 값)
 
 올라가는 파일: `index.html`, `styles.css`, `site.js`, `farm-info.js`, `favicon.svg`, `robots.txt`, `sitemap.xml`, `photos/` 안의 사진
 
