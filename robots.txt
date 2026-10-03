@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /practice/
+
+Sitemap: https://xn--980bp0a336bwfa.com/sitemap.xml

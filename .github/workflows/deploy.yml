@@ -1,0 +1,101 @@
+# master에 저장(푸시)되면 홈페이지 파일을 카페24 웹호스팅에 올립니다.
+# 1) www를 잠그고(700) 2) 안의 예전 파일을 모두 지운 뒤 3) 새 파일을 올리고 4) 다시 엽니다(755).
+# 중간에 실패하면 www는 잠긴 채로 남습니다.
+#
+# 방법 A: SSH (카페24에서 SSH 접속이 허용될 때)
+#   CAFE24_SSH_HOST, CAFE24_SSH_USER, CAFE24_SSH_PASS, CAFE24_SSH_KNOWN_HOSTS
+# 방법 B: FTP (SSH Secrets가 없으면 이쪽을 씁니다)
+#   CAFE24_FTP_HOST, CAFE24_FTP_USER, CAFE24_FTP_PASS
+#
+# Actions 탭 → "카페24에 올리기" → Run workflow 에서 "접속만 확인"을 고르면 파일은 건드리지 않고 접속만 시험합니다.
+name: 카페24에 올리기
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      check_only:
+        description: 접속만 확인 (파일은 건드리지 않음)
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cafe24-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 올릴 파일 모으기
+        run: |
+          mkdir -p _site
+          cp index.html styles.css site.js farm-info.js favicon.svg robots.txt sitemap.xml _site/
+          if [ -d photos ]; then
+            mkdir -p _site/photos
+            find photos -maxdepth 1 -type f ! -name 'README.md' -exec cp {} _site/photos/ \;
+          fi
+          ls -la _site
+
+      - name: 도구 설치
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass lftp
+
+      - name: 카페24로 업로드
+        env:
+          CHECK_ONLY: ${{ github.event_name == 'workflow_dispatch' && inputs.check_only }}
+          SSH_HOST: ${{ secrets.CAFE24_SSH_HOST }}
+          SSH_USER: ${{ secrets.CAFE24_SSH_USER }}
+          SSH_PASS: ${{ secrets.CAFE24_SSH_PASS }}
+          KNOWN_HOSTS: ${{ secrets.CAFE24_SSH_KNOWN_HOSTS }}
+          FTP_HOST: ${{ secrets.CAFE24_FTP_HOST }}
+          FTP_USER: ${{ secrets.CAFE24_FTP_USER }}
+          FTP_PASS: ${{ secrets.CAFE24_FTP_PASS }}
+        run: |
+          if [ -n "$SSH_HOST" ] && [ -n "$SSH_USER" ] && [ -n "$SSH_PASS" ] && [ -n "$KNOWN_HOSTS" ]; then
+            echo "SSH로 접속합니다."
+            mkdir -p ~/.ssh && chmod 700 ~/.ssh
+            printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+            chmod 600 ~/.ssh/known_hosts
+            export SSHPASS="$SSH_PASS"
+            SSH="sshpass -e ssh -o StrictHostKeyChecking=yes -o PubkeyAuthentication=no -o ConnectTimeout=30 $SSH_USER@$SSH_HOST"
+            if [ "$CHECK_ONLY" = "true" ]; then
+              $SSH 'echo 접속 성공; ls -ld ~/www'
+              exit 0
+            fi
+            tar -C _site -cf - . | $SSH '
+              set -e
+              mkdir -p ~/www
+              chmod 700 ~/www
+              find ~/www -mindepth 1 -delete
+              tar -C ~/www -xf -
+              find ~/www -type d -exec chmod 755 {} +
+              find ~/www -type f -exec chmod 644 {} +
+              chmod 755 ~/www
+              ls -la ~/www
+            '
+          elif [ -n "$FTP_HOST" ] && [ -n "$FTP_USER" ] && [ -n "$FTP_PASS" ]; then
+            echo "FTP로 접속합니다."
+            if [ "$CHECK_ONLY" = "true" ]; then
+              lftp -c "set cmd:fail-exit yes; set net:max-retries 2; set net:timeout 30;
+                open -u \"$FTP_USER\",\"$FTP_PASS\" \"$FTP_HOST\";
+                echo 접속 성공; cls -ld www"
+              exit 0
+            fi
+            # --delete: 서버의 www에서 이번에 올리지 않는 파일(예전 파일)을 모두 지웁니다.
+            lftp -c "set cmd:fail-exit yes; set net:max-retries 2; set net:timeout 30;
+              open -u \"$FTP_USER\",\"$FTP_PASS\" \"$FTP_HOST\";
+              chmod 700 www;
+              mirror --reverse --delete --no-perms --verbose _site www;
+              chmod 755 www;
+              cls -la www"
+          else
+            echo "::error::SSH(CAFE24_SSH_*) 또는 FTP(CAFE24_FTP_*) Secrets 중 한 쪽을 넣어 주세요."
+            exit 1
+          fi

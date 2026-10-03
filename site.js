@@ -1,4 +1,4 @@
-// 농장정보.js의 글을 읽어 상품과 연락처 화면을 만듭니다. 내용 수정은 농장정보.js에서 하세요.
+// farm-info.js의 글을 읽어 상품과 연락처 화면을 만듭니다. 내용 수정은 farm-info.js에서 하세요.
 (function () {
   function lines(text) {
     return String(text || '').split('\n').map(function (l) { return l.trim(); });
