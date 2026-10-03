@@ -134,3 +134,14 @@ a { color: var(--brand); }
 .cards.four { grid-template-columns: repeat(4, 1fr); }
 @media (max-width: 1000px) { .cards.four { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 760px) { .cards.four { grid-template-columns: 1fr; } }
+
+/* Notices (관리자 화면의 공지사항) */
+.notices[hidden], .nav-list li[hidden] { display: none; }
+.notices { padding-bottom: 0; }
+.notice-list { display: grid; gap: 10px; margin-top: 20px; }
+.notice-item { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; }
+.notice-item summary { cursor: pointer; display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.notice-item summary .badge { margin-left: 0; background: var(--leaf); }
+.notice-title { flex: 1; }
+.notice-item time { color: var(--muted); font-weight: 400; font-size: .9rem; white-space: nowrap; }
+.notice-body { margin: 12px 0 0; color: var(--muted); white-space: pre-line; }
