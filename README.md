@@ -6,7 +6,7 @@
 
 `master`에 저장되면 GitHub Actions(`.github/workflows/deploy.yml`)가 홈페이지 파일을 카페24에 FTP로 올립니다. 처음 한 번만 저장소 **Settings → Secrets and variables → Actions → New repository secret**에서 아래 값을 넣어 주세요. 비밀번호는 이곳에만 넣고 채팅이나 파일에는 적지 않습니다.
 
-- `CAFE24_FTP_HOST`: FTP 주소 (예: 아이디.cafe24.com)
+- `CAFE24_FTP_HOST`: FTP 주소 `damefarm1.cafe24.com` (다르면 카페24 호스팅 관리 화면의 FTP 정보에서 확인)
 - `CAFE24_FTP_USER`: FTP 아이디
 - `CAFE24_FTP_PASS`: FTP 비밀번호
 - `CAFE24_FTP_DIR`: (선택) 올릴 폴더, 비워 두면 `/www`
@@ -34,7 +34,7 @@
 - 인증을 갱신하면 `farm-info.js` 사업자정보의 인증 기간을 바꾸기 (유기농 2027.8.9, 저탄소 2028.8.31 만료)
 - 농장 소개 글 (`index.html`의 농장 소개 부분)
 - 공유 미리보기용 `og-image.png` (1200×630) 추가
-- 담이농장.com 연결이 끝나면 `index.html`의 `https://soilrist.github.io/coinworld/` 주소들을 실제 도메인으로 바꾸기
+- 지금 주소는 https://damefarm1.mycafe24.com/ 입니다. 담이농장.com을 다시 연결하면 `index.html`의 이 주소들을 새 도메인으로 바꾸기
 
 ## 보안
 

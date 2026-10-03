@@ -1,6 +1,6 @@
 # master에 저장(푸시)되면 홈페이지 파일을 카페24 웹호스팅에 FTP로 올립니다.
 # 접속 정보는 저장소 Settings → Secrets and variables → Actions 에 넣습니다.
-#   CAFE24_FTP_HOST  예: 아이디.cafe24.com
+#   CAFE24_FTP_HOST  damefarm1.cafe24.com
 #   CAFE24_FTP_USER  FTP 아이디
 #   CAFE24_FTP_PASS  FTP 비밀번호
 #   CAFE24_FTP_DIR   (선택) 올릴 폴더, 기본값 /www
