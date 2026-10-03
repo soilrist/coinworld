@@ -118,8 +118,7 @@ a { color: var(--brand); }
   .hero-actions .btn { flex: 1; text-align: center; }
 }
 
-.options li.sold-out span, .options li.sold-out strong { color: #a99a8c; text-decoration: line-through; }
-.options li.sold-out strong { text-decoration: none; }
+.options li.sold-out span, .options li.sold-out strong { color: #a99a8c; }
 
 /* Photos */
 .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
@@ -128,3 +127,6 @@ a { color: var(--brand); }
 .gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 .gallery figcaption { padding: 10px 14px; color: var(--muted); font-size: .95rem; }
 @media (max-width: 760px) { .gallery { grid-template-columns: 1fr 1fr; gap: 10px; } }
+
+.badge { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: #8a7d72; color: #fff; font-size: .75rem; vertical-align: middle; }
+.site-footer .biz-info { font-size: .8rem; margin: 0 0 6px; }

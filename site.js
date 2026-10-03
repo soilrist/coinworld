@@ -49,14 +49,18 @@
     box.innerHTML = '';
     products.forEach(function (p) {
       var card = el('article', 'card product');
-      card.appendChild(el('h3', null, p.name));
+      var allSoldOut = p.options.length && p.options.every(function (o) { return o.soldOut; });
+      if (allSoldOut) card.className += ' is-sold-out';
+      var title = el('h3', null, p.name);
+      if (allSoldOut) title.appendChild(el('span', 'badge', '품절'));
+      card.appendChild(title);
       if (p.desc) card.appendChild(el('p', null, p.desc));
       if (p.options.length) {
         var ul = el('ul', 'options');
         p.options.forEach(function (o) {
           var li = el('li', o.soldOut ? 'sold-out' : null);
           li.appendChild(el('span', null, o.size));
-          li.appendChild(el('strong', null, o.soldOut ? '품절' : o.price));
+          li.appendChild(el('strong', null, o.soldOut ? o.price + ' · 품절' : o.price));
           ul.appendChild(li);
         });
         card.appendChild(ul);
@@ -123,7 +127,28 @@
     box.hidden = false;
   }
 
+  function renderOrderLink() {
+    if (typeof 주문링크 === 'undefined') return;
+    var url = lines(주문링크).filter(Boolean)[0];
+    var links = document.querySelectorAll('.order-link');
+    for (var i = 0; i < links.length; i++) {
+      if (/^https?:\/\//.test(url || '')) links[i].href = url;
+    }
+  }
+
+  function renderBizInfo() {
+    var box = document.getElementById('biz-info');
+    if (!box || typeof 사업자정보 === 'undefined') return;
+    var items = parseContacts(사업자정보);
+    if (!items.length) return;
+    box.textContent = items.map(function (c) {
+      return c.label ? c.label + ' ' + c.value : c.value;
+    }).join(' · ');
+  }
+
   renderProducts();
+  renderOrderLink();
+  renderBizInfo();
   renderContacts();
   renderPhotos();
 })();
