@@ -11,12 +11,22 @@
 3. 새 홈페이지 파일을 올립니다.
 4. `www`를 다시 엽니다 (`chmod 755`). 중간에 실패하면 잠긴 채로 남아 안전합니다.
 
-처음 한 번만 저장소 **Settings → Secrets and variables → Actions → New repository secret**에서 아래 값을 넣어 주세요. 비밀번호는 이곳에만 넣고 채팅이나 파일에는 절대 적지 않습니다. 채팅에 한 번이라도 올라간 비밀번호는 먼저 바꾼 뒤, 바꾼 새 비밀번호를 넣으세요.
+처음 한 번만 저장소 **Settings → Secrets and variables → Actions → New repository secret**에서 아래 둘 중 **한 쪽**을 넣어 주세요. 비밀번호는 이곳에만 넣고 채팅이나 파일에는 절대 적지 않습니다. 채팅에 한 번이라도 올라간 비밀번호는 먼저 바꾼 뒤, 바꾼 새 비밀번호를 넣으세요.
 
+**방법 B: FTP (추천, 카페24는 보통 SSH 접속을 IP로 막아 둡니다)**
+- `CAFE24_FTP_HOST`: `damefarm1.cafe24.com`
+- `CAFE24_FTP_USER`: `damefarm1`
+- `CAFE24_FTP_PASS`: FTP 비밀번호 (바꾼 새 비밀번호)
+
+**방법 A: SSH (카페24에서 SSH 접속이 어디서나 허용될 때만)**
 - `CAFE24_SSH_HOST`: `xn--980bp0a336bwfa.com` (담이농장.com의 영문 표기)
 - `CAFE24_SSH_USER`: `damefarm1`
-- `CAFE24_SSH_PASS`: SSH/FTP 비밀번호 (바꾼 새 비밀번호)
-- `CAFE24_SSH_KNOWN_HOSTS`: PowerShell에서 `ssh-keyscan xn--980bp0a336bwfa.com` 을 실행해 나온 줄 전체를 복사해 붙여넣기 (가짜 서버에 접속하지 않도록 서버를 확인하는 값)
+- `CAFE24_SSH_PASS`: SSH 비밀번호 (바꾼 새 비밀번호)
+- `CAFE24_SSH_KNOWN_HOSTS`: PowerShell에서 `ssh-keyscan xn--980bp0a336bwfa.com` 을 실행해 나온 줄 전체
+
+SSH Secrets가 모두 있으면 SSH를, 없으면 FTP를 씁니다.
+
+**접속 시험:** Secrets를 넣은 뒤 저장소 **Actions → 카페24에 올리기 → Run workflow**를 누르면(“접속만 확인” 체크된 상태) 파일은 건드리지 않고 접속만 시험합니다. 초록 체크가 뜨면 PR을 머지하세요.
 
 올라가는 파일: `index.html`, `styles.css`, `site.js`, `farm-info.js`, `favicon.svg`, `robots.txt`, `sitemap.xml`, `photos/` 안의 사진
 
