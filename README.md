@@ -26,7 +26,7 @@
 
 SSH Secrets가 모두 있으면 SSH를, 없으면 FTP를 씁니다.
 
-**접속 시험:** Secrets를 넣은 뒤 저장소 **Actions → 카페24에 올리기 → Run workflow**를 누르면(“접속만 확인” 체크된 상태) 파일은 건드리지 않고 접속만 시험합니다. 초록 체크가 뜨면 PR을 머지하세요.
+**접속 시험:** 이 설정이 master에 들어간 뒤에는 **Actions → 카페24에 올리기 → Run workflow**(“접속만 확인” 체크)로 파일은 건드리지 않고 접속만 시험할 수 있습니다. 업로드가 실패하면 사이트는 잠긴 채로 남으니, 로그를 보고 고친 뒤 Run workflow에서 체크를 풀고 다시 실행하세요.
 
 올라가는 파일: `index.html`, `styles.css`, `site.js`, `farm-info.js`, `favicon.svg`, `robots.txt`, `sitemap.xml`, `photos/` 안의 사진
 
