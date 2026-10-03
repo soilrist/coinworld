@@ -28,7 +28,8 @@ jobs:
       - name: 올릴 파일 모으기
         run: |
           mkdir -p _site
-          cp index.html styles.css site.js farm-info.js favicon.svg robots.txt sitemap.xml _site/
+          cp index.html styles.css site.js favicon.svg robots.txt sitemap.xml _site/
+          cp -r data admin _site/
           if [ -d photos ]; then
             mkdir -p _site/photos
             find photos -maxdepth 1 -type f ! -name 'README.md' -exec cp {} _site/photos/ \;

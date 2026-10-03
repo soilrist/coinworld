@@ -1,0 +1,89 @@
+{
+  "lead": "가격은 택배 1상자 기준이며, 배송비는 무료입니다.",
+  "orderUrl": "https://farmer4989.com/runway2000/1",
+  "products": [
+    {
+      "name": "유기농 밤고구마",
+      "description": "포슬포슬하고 고소한 밤고구마입니다. 12월쯤 큐어링해 두면 촉촉한 꿀고구마가 됩니다.",
+      "options": [
+        {
+          "size": "특상중 혼합(80~300g) 3kg",
+          "price": "15,000원",
+          "soldOut": true
+        },
+        {
+          "size": "특상중 혼합(80~300g) 5kg",
+          "price": "26,000원",
+          "soldOut": true
+        },
+        {
+          "size": "특상중 혼합(80~300g) 10kg",
+          "price": "41,000원",
+          "soldOut": true
+        },
+        {
+          "size": "소(30~80g) 5kg",
+          "price": "21,000원",
+          "soldOut": true
+        },
+        {
+          "size": "소(30~80g) 10kg",
+          "price": "30,000원",
+          "soldOut": true
+        },
+        {
+          "size": "특대(300g 이상) 5kg",
+          "price": "21,000원",
+          "soldOut": true
+        },
+        {
+          "size": "특대(300g 이상) 10kg",
+          "price": "31,000원",
+          "soldOut": true
+        },
+        {
+          "size": "공품 혼합(70~300g) 5kg",
+          "price": "13,000원",
+          "soldOut": true
+        }
+      ]
+    },
+    {
+      "name": "유기농 호풍미고구마",
+      "description": "호풍미 품종을 화학비료와 농약 없이 유기농으로 길렀습니다.",
+      "options": [
+        {
+          "size": "특상중 5kg",
+          "price": "27,000원",
+          "soldOut": true
+        },
+        {
+          "size": "특상중 10kg",
+          "price": "42,000원",
+          "soldOut": true
+        },
+        {
+          "size": "소 5kg",
+          "price": "23,000원",
+          "soldOut": true
+        },
+        {
+          "size": "소 10kg",
+          "price": "32,000원",
+          "soldOut": true
+        }
+      ]
+    },
+    {
+      "name": "유기농 미니 밤호박 보우짱",
+      "description": "한 손에 쏙 들어오는 달콤한 미니 밤호박입니다.",
+      "options": [
+        {
+          "size": "이번 시즌",
+          "price": "가격 문의",
+          "soldOut": true
+        }
+      ]
+    }
+  ]
+}
