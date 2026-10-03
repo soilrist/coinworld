@@ -11,7 +11,9 @@
 - `CAFE24_FTP_PASS`: FTP 비밀번호
 - `CAFE24_FTP_DIR`: (선택) 올릴 폴더, 비워 두면 `/www`
 
-올라가는 파일: `index.html`, `styles.css`, `site.js`, `farm-info.js`, `favicon.svg`, `photos/` 안의 사진
+올라가는 파일: `index.html`, `styles.css`, `site.js`, `farm-info.js`, `favicon.svg`, `robots.txt`, `sitemap.xml`, `photos/` 안의 사진
+
+주소는 https://담이농장.com 기준입니다. 카페24에 SSL(https)이 없으면 카페24 호스팅 관리 → 보안서버(SSL)에서 무료 인증서를 켜 주세요.
 
 ## 가격·상품·연락처 고치는 법 (휴대폰에서도 됩니다)
 
@@ -34,7 +36,7 @@
 - 인증을 갱신하면 `farm-info.js` 사업자정보의 인증 기간을 바꾸기 (유기농 2027.8.9, 저탄소 2028.8.31 만료)
 - 농장 소개 글 (`index.html`의 농장 소개 부분)
 - 공유 미리보기용 `og-image.png` (1200×630) 추가
-- 지금 주소는 https://damefarm1.mycafe24.com/ 입니다. 담이농장.com을 다시 연결하면 `index.html`의 이 주소들을 새 도메인으로 바꾸기
+- 담이농장.com 도메인(가비아 등록)은 2026-10-22 만료이니 꼭 연장하기
 
 ## 보안
 
