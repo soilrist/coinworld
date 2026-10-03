@@ -33,7 +33,7 @@
 
 1. GitHub에 로그인한 뒤 https://github.com/settings/personal-access-tokens/new 를 엽니다.
 2. Token name: `담이농장 관리자`, Expiration: 1년(366 days) 정도로 고릅니다.
-3. Repository access: **Only select repositories** → `soilrist/coinworld` 하나만 고릅니다.
+3. Repository access: **Only select repositories** → `soilrist/damefarm` 하나만 고릅니다.
 4. Permissions → Repository permissions → **Contents: Read and write** 하나만 켭니다. (Metadata: Read-only는 자동으로 켜집니다)
 5. **Generate token**을 누르고 나온 `github_pat_…` 글자를 복사합니다. 이 글자는 비밀번호와 같으니 채팅이나 문자로 보내지 마세요.
 6. `/admin/`을 열고 **액세스 토큰으로 로그인**을 누른 뒤 붙여넣으면 끝입니다. 같은 브라우저에서는 다음부터 바로 들어가집니다.

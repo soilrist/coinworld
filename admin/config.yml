@@ -1,10 +1,10 @@
 # 담이농장 관리자 화면 설정 (Sveltia CMS)
 # 관리자 화면에서 저장하면 아래 data 파일과 photos 폴더가 GitHub 저장소에 바로 기록되고,
-# master에 기록되면 자동 배포가 카페24에 올립니다.
+# main에 기록되면 자동 배포가 카페24에 올립니다.
 backend:
   name: github
-  repo: soilrist/coinworld
-  branch: master
+  repo: soilrist/damefarm
+  branch: main
   commit_messages:
     create: "관리자 화면: {{collection}} '{{slug}}' 추가"
     update: "관리자 화면: {{collection}} '{{slug}}' 수정"
