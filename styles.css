@@ -130,3 +130,7 @@ a { color: var(--brand); }
 
 .badge { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: #8a7d72; color: #fff; font-size: .75rem; vertical-align: middle; }
 .site-footer .biz-info { font-size: .8rem; margin: 0 0 6px; }
+
+.cards.four { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 1000px) { .cards.four { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 760px) { .cards.four { grid-template-columns: 1fr; } }
