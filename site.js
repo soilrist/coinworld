@@ -101,6 +101,29 @@
     }
   }
 
+  function renderPhotos() {
+    var box = document.getElementById('photo-list');
+    if (!box || typeof 사진목록 === 'undefined') return;
+    var photos = lines(사진목록).filter(Boolean).map(function (line) {
+      var parts = line.split('|').map(function (p) { return p.trim(); });
+      return { file: parts[0], caption: parts.slice(1).join(' | ') };
+    });
+    if (!photos.length) return;
+    photos.forEach(function (ph) {
+      var fig = el('figure');
+      var img = el('img');
+      img.src = 'photos/' + encodeURIComponent(ph.file);
+      img.alt = ph.caption || '담이농장 사진';
+      img.loading = 'lazy';
+      img.onerror = function () { fig.remove(); if (!box.children.length) box.hidden = true; };
+      fig.appendChild(img);
+      if (ph.caption) fig.appendChild(el('figcaption', null, ph.caption));
+      box.appendChild(fig);
+    });
+    box.hidden = false;
+  }
+
   renderProducts();
   renderContacts();
+  renderPhotos();
 })();
